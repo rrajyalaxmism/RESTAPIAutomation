@@ -1,4 +1,5 @@
 import requests
+import json
 
 URL = "https://todo.pixegami.io"
 def test_GET():
@@ -7,12 +8,10 @@ def test_GET():
     assert Status_Code==200
 
 def test_PUT():
-    payload={
-              "content": "Put test",
-              "user_id": "rrl",
-              "is_done": False
-            }
-    response = requests.put(URL+"/create-task",json=payload)
+    json_file = open("../TestData/PUT_Payload.json","r").read()
+    payload = json.loads(json_file)
+
+    response = requests.put(URL+"/create-task",json= payload)
     Status_Code = response.status_code
     assert Status_Code == 200
 
